@@ -56,6 +56,7 @@ docker exec coding-tips  ./vendor/bin/pest tests/Unit/DesignPatterns/Behavioural
 - **Flexibility**: New shapes can be added easily by creating new classes that implement the same interface without modifying existing code. This allows developers to extend functionality without worrying about breaking existing implementations.
 
 ```php
+use HalfShellStudios\CodingTips\DesignPatterns\Behavioural\Strategy\Interfaces\Shape as ShapeInterface;
 
 class Pentagon implements ShapeInterface {
     private $side;
