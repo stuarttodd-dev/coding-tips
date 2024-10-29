@@ -1,4 +1,4 @@
-# Area Calculation with Strategy Pattern
+# Strategy Pattern
 
 This project demonstrates the use of the Strategy Pattern to calculate the area of various geometric shapes. It includes implementations for different shapes as well as an alternative approach for area calculation.
 
