@@ -1,11 +1,11 @@
 {
-    "name": "halfshellstudios/package-sample",
+    "name": "halfshellstudios/coding-tips",
     "type": "library",
     "version": "1.0.0",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "HalfShellStudios\\PackageSample\\": "src/"
+            "HalfShellStudios\\CodingTips\\": "src/"
         }
     },
     "authors": [

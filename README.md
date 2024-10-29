@@ -1,6 +1,6 @@
-# Package Sample Repository
+# Coding Tips!
 
-Welcome to the **Package Sample Repository**! This project aims to help developers by providing a solid foundation for creating and maintaining PHP packages. The goal behind this repository is to simplify technical tests while showcasing your skills in building effective PHP packages.
+Welcome to Stu’s **Coding Tips**—the one-stop shop for PHP package goodness! This project exists to make your coding life easier and save you from the hair-pulling moments that usually come with technical tests. The goal? To equip you with the tools to nail technical tests.
 
 ## Features
 
@@ -23,12 +23,12 @@ Welcome to the **Package Sample Repository**! This project aims to help develope
 
 1. **Clone the Repository**:
    ```
-   git clone git@github.com:stuarttodd-dev/package-sample.git
+   git clone git@github.com:stuarttodd-dev/coding-tips.git
    ```
 
 2. **Navigate to repo**:
    ```
-   cd package-sample
+   cd coding-tips
    ```
 
 3. **Set Up Docker**:
@@ -46,77 +46,20 @@ Welcome to the **Package Sample Repository**! This project aims to help develope
 5. **Install Dependencies**:
    Inside your Docker container, install the project dependencies using Composer:
    ```
-   docker exec php-composer-package composer install
+   docker exec coding-tips composer install
    ```
 
 6. **Run the Standards Check**:
    Execute the following command to check coding standards and static analysis:
    ```
-   docker exec php-composer-package composer standards:check
+   docker exec coding-tips composer standards:check
    ```
 
  7. **Run Tests**:
    Execute the following command to run tests:
    ```
-   docker exec php-composer-package composer tests
+   docker exec coding-tips composer tests
    ```
-
-## Sharing Your Package
-
-To make your package publicly accessible, you can either add it to **Packagist** for installation via Composer or adjust your composer.json file to include the VCS URL:
-
-### Option 1. Add to Packagist
-
-Submit your package to [Packagist.org](https://packagist.org).
-
-### Option 2. Add VCS Line in Composer
-
-Adjust your composer.json file to include the VCS URL, e.g to include this:
-```
-{
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/stuarttodd-dev/package-sample.git" 
-        }
-    ]
-}
-```
-
-## Tagging Your Releases
-
-To create a new release for your package, you can tag your repository using the following commands:
-
-1. Create a new tag:
-   ```
-   git tag -a v1.0.0 -m "Release version 1.0.0"
-   ```
-3. Push the tag to GitHub:
-   ```
-   git push origin v1.0.0
-   ```
-
-## Usage Examples
-
-Once you've pulled down the package (either by adjusing your composer.json with a VCS path or adding it to packagist), it will be stored in your `vendor` folder for local access. 
-
-Here’s how you can use the `Greeter` class in your PHP project (but obviously it'd be whatever you've coded into your ``src`` directory:
-
-```
-use HalfShellStudios\PackageSample\Greeter;
-
-$greeter = new Greeter();
-echo $greeter->sayHello();   // Outputs: Well, hello there!
-echo $greeter->sayGoodbye(); // Outputs: Errr... Goodbye!
-echo $greeter->greet();      // Outputs: Well, hello there! Errr... Goodbye!
-```
-
-Thats it!
    
-## Conclusion
-
-This repository serves as a foundation for creating a PHP package, making it easier for you to develop, test, and maintain your projects. Feel free to modify the code and templates to suit your needs!
-
-If you have any questions or suggestions, feel free to open an issue in this repository.
-
-Happy coding!
+## Don't forget...
+Each folder within the src directory has it's own README file.

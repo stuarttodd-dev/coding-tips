@@ -3,7 +3,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        container_name: php-composer-package
+        container_name: coding-tips
         volumes:
             - .:/src
         tty: true
