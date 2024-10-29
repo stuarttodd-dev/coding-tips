@@ -1,0 +1,52 @@
+{
+    "name": "halfshellstudios/package-sample",
+    "type": "library",
+    "version": "1.0.0",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "HalfShellStudios\\PackageSample\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Stuart Todd"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.3",
+        "larapack/dd": "^1.1"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.10",
+        "phpmd/phpmd": "^2.15",
+        "phpstan/phpstan": "^1.12",
+        "rector/rector": "^1.2",
+        "pestphp/pest-plugin-drift": "^3.0"
+    },
+    "scripts": {
+        "tests": "./vendor/bin/pest",
+        "phpcs": "./vendor/bin/phpcs --standard=PSR12 --report=summary src/",
+        "phpcbf": "./vendor/bin/phpcbf --standard=PSR12 src/",
+        "phpmd": "./vendor/bin/phpmd src/ text cleancode,codesize,controversial,design,naming,unusedcode",
+        "phpstan": "./vendor/bin/phpstan analyse src/ --level max",
+        "rector:dry-run": "./vendor/bin/rector process --dry-run",
+        "rector": "./vendor/bin/rector process",
+        "standards:check": [
+            "@phpcs",
+            "@phpmd",
+            "@phpstan",
+            "@rector:dry-run"
+        ],
+        "standards:fix": [
+            "@phpcbf",
+            "@rector"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}

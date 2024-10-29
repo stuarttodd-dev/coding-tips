@@ -1,0 +1,9 @@
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: php-composer-package
+        volumes:
+            - .:/src
+        tty: true
