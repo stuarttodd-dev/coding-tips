@@ -5,7 +5,7 @@ This project demonstrates the use of the Strategy Pattern to calculate the area 
 ## Directory Structure
 
 ```
-/HalfShellStudios  
+HalfShellStudios  
 └── CodingTips  
     └── DesignPatterns  
         └── Behavioural  
@@ -19,6 +19,8 @@ This project demonstrates the use of the Strategy Pattern to calculate the area 
                 ├── Square.php  
                 ├── Trapezoid.php  
                 ├── Triangle.php  
+                └── Interfaces  
+                    └── Shape.php  
                 └── AlternativeVersion  
                     └── Shape.php  
 └── tests  
@@ -39,6 +41,7 @@ This project demonstrates the use of the Strategy Pattern to calculate the area 
 - **Square.php**: Class to calculate the area of a square given the length of a side.
 - **Trapezoid.php**: Class to calculate the area of a trapezoid given its two bases and height.
 - **Triangle.php**: Class to calculate the area of a triangle given its base and height.
+- **Interfaces/Shape**: Ensures the strategy classes adhere to a given interface, i.e it **must** have the getArea method.
 - **AlternativeVersion/Shape.php**: Provides a static method to calculate the area of various shapes using a common interface.
 - **tests/Unit/DesignPatterns/Behavioural/StrategyTest**: Contains tests that validate the functionality of the area calculations for each shape.
 
