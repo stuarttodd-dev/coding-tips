@@ -12,7 +12,6 @@ use HalfShellStudios\CodingTips\DesignPatterns\Behavioural\Strategy\Square;
 use HalfShellStudios\CodingTips\DesignPatterns\Behavioural\Strategy\Trapezoid;
 use HalfShellStudios\CodingTips\DesignPatterns\Behavioural\Strategy\Triangle;
 use HalfShellStudios\CodingTips\DesignPatterns\Behavioural\Strategy\AlternativeVersion\Shape;
-use InvalidArgumentException;
 
 it('calculates the area of a circle', function (): void {
     $radius = 3;

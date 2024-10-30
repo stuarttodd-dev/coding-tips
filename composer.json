@@ -23,7 +23,8 @@
         "phpmd/phpmd": "^2.15",
         "phpstan/phpstan": "^1.12",
         "rector/rector": "^1.2",
-        "pestphp/pest-plugin-drift": "^3.0"
+        "pestphp/pest-plugin-drift": "^3.0",
+        "mockery/mockery": "^1.6"
     },
     "scripts": {
         "tests": "./vendor/bin/pest",

@@ -4,9 +4,8 @@ This project demonstrates the use of the Strategy Pattern to calculate the area 
 
 ## Directory Structure
 
-```
-HalfShellStudios  
-└── CodingTips  
+```  
+└── src  
     └── DesignPatterns  
         └── Behavioural  
             └── Strategy  
