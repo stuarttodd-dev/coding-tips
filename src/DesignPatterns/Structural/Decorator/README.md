@@ -202,4 +202,3 @@ class PizzaMaker
 ### Disadvantages
 - **Less Flexibility**: This single-class approach limits flexibility for mix-and-match or rearranged components, meaning it’s less adaptable to runtime changes.
 - **Monolithic Growth**: Over time, adding new toppings and crusts can make the class bloated, eventually reducing maintainability and violating the Single Responsibility Principle.
-- 
