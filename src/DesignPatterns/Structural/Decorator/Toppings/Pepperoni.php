@@ -9,6 +9,7 @@ use HalfShellStudios\CodingTips\DesignPatterns\Structural\Decorator\Abstractions
 class Pepperoni extends ToppingDecorator
 {
     protected float $price = 1.49;
+
     protected array $toppings = [
         'Pepperoni'
     ];

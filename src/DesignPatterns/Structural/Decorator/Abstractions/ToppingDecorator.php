@@ -9,6 +9,8 @@ use HalfShellStudios\CodingTips\DesignPatterns\Structural\Decorator\Interfaces\P
 abstract class ToppingDecorator implements Pizza
 {
     protected float $price;
+
+    /** @var array<string>  */
     protected array $toppings;
 
     public function __construct(protected Pizza $pizza)
@@ -16,11 +18,13 @@ abstract class ToppingDecorator implements Pizza
         //
     }
 
+    #[\Override]
     public function getPrice(): float
     {
         return round($this->pizza->getPrice() + $this->price, 2);
     }
 
+    #[\Override]
     public function getToppings(): array
     {
         return array_merge($this->pizza->getToppings(), $this->toppings);

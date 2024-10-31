@@ -87,7 +87,7 @@ it('Can make a new york style pizza with mushroom and sweetcorn', function (): v
     expect($pizza->getToppings())->toBe(['Sweetcorn', 'Mushrooms']);
 });
 
-it('can make a thin crust pizza with ham and pineapple (alternative version)', function () {
+it('can make a thin crust pizza with ham and pineapple (alternative version)', function (): void {
     $pizzaMaker = new PizzaMaker();
     $result = $pizzaMaker->makePizza('Thin', ['Ham', 'Pineapple']);
 
@@ -95,7 +95,7 @@ it('can make a thin crust pizza with ham and pineapple (alternative version)', f
         ->and($result['toppings'])->toBe(['Ham', 'Pineapple']);
 });
 
-it('can make a new york style pizza with pepperoni and mushrooms (alternative version)', function () {
+it('can make a new york style pizza with pepperoni and mushrooms (alternative version)', function (): void {
     $pizzaMaker = new PizzaMaker();
     $result = $pizzaMaker->makePizza('NewYorkStyle', ['Pepperoni', 'Mushrooms']);
 
@@ -103,7 +103,7 @@ it('can make a new york style pizza with pepperoni and mushrooms (alternative ve
         ->and($result['toppings'])->toBe(['Pepperoni', 'Mushrooms']);
 });
 
-it('can make a thick crust pizza with sweetcorn (alternative version)', function () {
+it('can make a thick crust pizza with sweetcorn (alternative version)', function (): void {
     $pizzaMaker = new PizzaMaker();
     $result = $pizzaMaker->makePizza('Thick', ['Sweetcorn']);
 
@@ -111,7 +111,7 @@ it('can make a thick crust pizza with sweetcorn (alternative version)', function
         ->and($result['toppings'])->toBe(['Sweetcorn']);
 });
 
-it('can make a pizza with no toppings (alternative version)', function () {
+it('can make a pizza with no toppings (alternative version)', function (): void {
     $pizzaMaker = new PizzaMaker();
     $result = $pizzaMaker->makePizza('Thin', []);
 
@@ -119,7 +119,7 @@ it('can make a pizza with no toppings (alternative version)', function () {
         ->and($result['toppings'])->toBe([]);
 });
 
-it('can make a pizza with multiple same toppings (alternative version)', function () {
+it('can make a pizza with multiple same toppings (alternative version)', function (): void {
     $pizzaMaker = new PizzaMaker();
     $result = $pizzaMaker->makePizza('Thick', ['Pineapple', 'Pineapple']);
 
@@ -127,7 +127,7 @@ it('can make a pizza with multiple same toppings (alternative version)', functio
         ->and($result['toppings'])->toBe(['Pineapple', 'Pineapple']);
 });
 
-it('handles unknown crust gracefully (alternative version)', function () {
+it('handles unknown crust gracefully (alternative version)', function (): void {
     $pizzaMaker = new PizzaMaker();
     $result = $pizzaMaker->makePizza('UnknownCrust', ['Ham']);
 
@@ -135,7 +135,7 @@ it('handles unknown crust gracefully (alternative version)', function () {
     ->and($result['toppings'])->toBe(['Ham']);
 });
 
-it('handles unknown topping gracefully (alternative version)', function () {
+it('handles unknown topping gracefully (alternative version)', function (): void {
     $pizzaMaker = new PizzaMaker();
     $result = $pizzaMaker->makePizza('Thin', ['UnknownTopping']);
 
@@ -143,7 +143,7 @@ it('handles unknown topping gracefully (alternative version)', function () {
     ->and($result['toppings'])->toBe(['UnknownTopping']);
 });
 
-it('handles mixed known and unknown toppings (alternative version)', function () {
+it('handles mixed known and unknown toppings (alternative version)', function (): void {
     $pizzaMaker = new PizzaMaker();
     $result = $pizzaMaker->makePizza('Thin', ['Ham', 'UnknownTopping', 'Mushrooms']);
 

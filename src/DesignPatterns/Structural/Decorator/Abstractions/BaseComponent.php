@@ -9,13 +9,17 @@ use HalfShellStudios\CodingTips\DesignPatterns\Structural\Decorator\Interfaces\P
 abstract class BaseComponent implements Pizza
 {
     protected float $price;
+
+    /** @var array<string> */
     protected array $toppings;
 
+    #[\Override]
     public function getPrice(): float
     {
         return round($this->price, 2);
     }
 
+    #[\Override]
     public function getToppings(): array
     {
         return $this->toppings;

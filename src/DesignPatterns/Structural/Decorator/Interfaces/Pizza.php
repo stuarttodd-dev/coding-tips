@@ -7,5 +7,7 @@ namespace HalfShellStudios\CodingTips\DesignPatterns\Structural\Decorator\Interf
 interface Pizza
 {
     public function getPrice(): float;
+
+    /** @return array<string> */
     public function getToppings(): array;
 }

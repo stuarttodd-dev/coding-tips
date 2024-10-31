@@ -9,5 +9,7 @@ use HalfShellStudios\CodingTips\DesignPatterns\Structural\Decorator\Abstractions
 class ThickCrust extends BaseComponent
 {
     protected float $price = 5.99;
+
+    /** @var array<string>  */
     protected array $toppings = [];
 }

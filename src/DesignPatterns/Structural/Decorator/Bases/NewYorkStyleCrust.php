@@ -9,5 +9,7 @@ use HalfShellStudios\CodingTips\DesignPatterns\Structural\Decorator\Abstractions
 class NewYorkStyleCrust extends BaseComponent
 {
     protected float $price = 4.49;
+
+    /** @var array<string>  */
     protected array $toppings = [];
 }

@@ -9,5 +9,7 @@ use HalfShellStudios\CodingTips\DesignPatterns\Structural\Decorator\Abstractions
 class ThinCrust extends BaseComponent
 {
     protected float $price = 3.49;
+
+    /** @var array<string>  */
     protected array $toppings = [];
 }

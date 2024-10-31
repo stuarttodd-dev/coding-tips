@@ -6,12 +6,14 @@ namespace HalfShellStudios\CodingTips\DesignPatterns\Structural\Decorator\Altern
 
 class PizzaMaker
 {
+    /** @var array|float[]  */
     private array $crustPrices = [
         'Thin' => 3.49,
         'NewYorkStyle' => 4.49,
         'Thick' => 5.99,
     ];
 
+    /** @var array|float[]  */
     private array $toppingPrices = [
         'Ham' => 1.29,
         'Mushrooms' => 0.99,
@@ -20,6 +22,10 @@ class PizzaMaker
         'Sweetcorn' => 0.49,
     ];
 
+    /**
+     * @param array<string> $toppings
+     * @return array<string, float|array<string|float>>
+     */
     public function makePizza(string $crust, array $toppings): array
     {
         $price = $this->crustPrices[$crust] ?? 0.00;
