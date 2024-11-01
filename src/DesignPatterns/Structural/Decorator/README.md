@@ -1,6 +1,6 @@
 # Decorator Pattern
 
-This project demonstrates the use of the Decorator Pattern to dynamically add functionality to a Pizza object by "wrapping" it with additional components (like different crust types or toppings). Each component (e.g., a crust or topping) is a decorator that augments the pizza with a specific price and description, creating flexible and extensible pizza customisation.
+This project demonstrates the use of the Decorator Pattern to dynamically add functionality to a Pizza object by "wrapping" it with additional components (like different crust types or toppings). Each component (e.g., a crust or topping) is a decorator that augments the pizza with a specific price and toppings, creating flexible and extensible pizza customisation.
 
 ## Directory Structure
 
@@ -36,12 +36,12 @@ This project demonstrates the use of the Decorator Pattern to dynamically add fu
 ### Files Overview
 
 - **Abstractions/BaseComponent.php**: Defines a base component class for the pizza, implementing core functionality and acting as a base for the crust and topping components.
-- **Abstractions/ToppingDecorator.php**: An abstract decorator class that wraps a Pizza component and adds additional behavior or state (e.g., price and description for toppings).
+- **Abstractions/ToppingDecorator.php**: An abstract decorator class that wraps a Pizza component and adds additional behavior or state (e.g., price and toppings).
 - **AlternativeVersion/PizzaMaker.php**: A simplified, standalone version of the PizzaMaker class that creates a basic pizza with a selected crust and list of toppings.
 - **Bases/NewYorkStyleCrust.php, ThickCrust.php, ThinCrust.php**: Concrete implementations of crusts that add specific prices and descriptions, serving as base pizzas in the decorator structure.
 - **Interfaces/Pizza.php**: Defines the Pizza interface, which mandates a getPrice() and getDescription() method to ensure each component provides the necessary pizza information.
-- **Toppings/Ham.php, Mushroom.php, Pepperoni.php, Pineapple.php, Sweetcorn.php**: Concrete decorator classes for each topping, adding the respective topping’s price and description to the Pizza.
-- **tests/Unit/DesignPatterns/Structural/DecoratorTest.php**: Unit tests that validate the functionality of each pizza and topping decorator, ensuring correct pricing and descriptions.
+- **Toppings/Ham.php, Mushroom.php, Pepperoni.php, Pineapple.php, Sweetcorn.php**: Concrete decorator classes for each topping, adding the respective topping’s price and topping name to the Pizza.
+- **tests/Unit/DesignPatterns/Structural/DecoratorTest.php**: Unit tests that validate the functionality of each pizza and topping decorator, ensuring correct pricing and topping names.
 ## Running Tests
 
 You can execute the tests using the following command:
