@@ -7,7 +7,6 @@ use HalfShellStudios\CodingTips\DesignPatterns\Creational\Factory\Interfaces\Pay
 use HalfShellStudios\CodingTips\DesignPatterns\Creational\Factory\PayPalGateway;
 use HalfShellStudios\CodingTips\DesignPatterns\Creational\Factory\StripeGateway;
 use HalfShellStudios\CodingTips\DesignPatterns\Creational\Factory\SquareGateway;
-use InvalidArgumentException;
 
 it('creates a PayPal payment gateway', function (): void {
     $factory = new PaymentGatewayFactory();
