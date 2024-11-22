@@ -2,6 +2,8 @@
 
 namespace HalfShellStudios\CodingTips\DesignPatterns\Behavioural\FluentInterface;
 
+use InvalidArgumentException;
+
 class Calculator
 {
     private float $result = 0;
@@ -26,9 +28,10 @@ class Calculator
 
     public function divide(float $value): self
     {
-        if ($value === 0) {
-            throw new \InvalidArgumentException("Division by zero.");
+        if ($value === 0.0) {
+            throw new InvalidArgumentException("Division by zero.");
         }
+
         $this->result /= $value;
         return $this;
     }

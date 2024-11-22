@@ -6,7 +6,7 @@ use HalfShellStudios\CodingTips\DesignPatterns\Behavioural\FluentInterface\Car;
 use HalfShellStudios\CodingTips\DesignPatterns\Behavioural\FluentInterface\Query;
 use HalfShellStudios\CodingTips\DesignPatterns\Behavioural\FluentInterface\Calculator;
 
-it('performs chained calculations', function () {
+it('performs chained calculations', function (): void {
     $calculator = new Calculator();
 
     $result = $calculator
@@ -19,7 +19,7 @@ it('performs chained calculations', function () {
     expect($result)->toBe(10.0);
 });
 
-it('builds a query using a fluent interface', function () {
+it('builds a query using a fluent interface', function (): void {
     $query = new Query();
 
     $sql = $query
@@ -32,7 +32,7 @@ it('builds a query using a fluent interface', function () {
     expect($sql)->toBe('SELECT * FROM products WHERE price > 100 ORDER BY name ASC');
 });
 
-it('configures a car using a fluent interface', function () {
+it('configures a car using a fluent interface', function (): void {
     $car = new Car();
 
     $configuration = $car

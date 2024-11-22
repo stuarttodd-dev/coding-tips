@@ -4,7 +4,16 @@ namespace HalfShellStudios\CodingTips\DesignPatterns\Behavioural\FluentInterface
 
 class Car
 {
-    private array $attributes = [];
+    /**
+     * @var array{
+     *     color?: string,
+     *     engine?: string,
+     *     features: array<int, string>
+     * }
+     */
+    private array $attributes = [
+        'features' => [],
+    ];
 
     public function setColor(string $color): self
     {
@@ -24,6 +33,13 @@ class Car
         return $this;
     }
 
+    /**
+     * @return array{
+     *     color?: string,
+     *     engine?: string,
+     *     features: array<int, string>
+     * }
+     */
     public function getConfiguration(): array
     {
         return $this->attributes;

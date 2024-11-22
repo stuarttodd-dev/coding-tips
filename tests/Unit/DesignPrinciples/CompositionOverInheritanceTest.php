@@ -15,42 +15,42 @@ use HalfShellStudios\CodingTips\DesignPrinciples\CompositionOverInheritance\TheS
 use HalfShellStudios\CodingTips\DesignPrinciples\CompositionOverInheritance\TheSolution\Ingredients\Sugar;
 use HalfShellStudios\CodingTips\DesignPrinciples\CompositionOverInheritance\TheSolution\Ingredients\WhippedCream;
 
-it('returns the correct description and cost for Coffee (bad way)', function () {
+it('returns the correct description and cost for Coffee (bad way)', function (): void {
     $coffee = new Coffee();
 
     expect($coffee->getDescription())->toBe('Generic Coffee');
     expect($coffee->getCost())->toBe(2.00);
 });
 
-it('returns the correct description and cost for Espresso (bad way)', function () {
+it('returns the correct description and cost for Espresso (bad way)', function (): void {
     $espresso = new Espresso();
 
     expect($espresso->getDescription())->toBe('Espresso');
     expect($espresso->getCost())->toBe(2.50);
 });
 
-it('returns the correct description and cost for Espresso with Milk (bad way)', function () {
+it('returns the correct description and cost for Espresso with Milk (bad way)', function (): void {
     $espressoWithMilk = new EspressoWithMilk();
 
     expect($espressoWithMilk->getDescription())->toBe('Espresso with Milk');
     expect($espressoWithMilk->getCost())->toBe(3.00);  // 2.50 + 0.50
 });
 
-it('returns the correct description and cost for Espresso with Milk and Sugar (bad way)', function () {
+it('returns the correct description and cost for Espresso with Milk and Sugar (bad way)', function (): void {
     $espressoWithMilkAndSugar = new EspressoWithMilkAndSugar();
 
     expect($espressoWithMilkAndSugar->getDescription())->toBe('Espresso with Milk');
     expect($espressoWithMilkAndSugar->getCost())->toBe(3.00);  // 2.50 + 0.50
 });
 
-it('returns the correct description and cost for Espresso with Sugar (bad way)', function () {
+it('returns the correct description and cost for Espresso with Sugar (bad way)', function (): void {
     $espressoWithSugar = new EspressoWithSugar();
 
     expect($espressoWithSugar->getDescription())->toBe('Espresso with Milk and Sugar');
     expect($espressoWithSugar->getCost())->toBe(3.20);  // 2.50 + 0.50 + 0.20
 });
 
-it('returns the correct description and cost for espresso with milk', function () {
+it('returns the correct description and cost for espresso with milk', function (): void {
     $espresso = new Drink("Espresso", 2.50);
     $milk = new Milk();
 
@@ -63,7 +63,7 @@ it('returns the correct description and cost for espresso with milk', function (
     expect($espressoWithMilk->getCost())->toBe(3.00);  // 2.50 + 0.50
 });
 
-it('returns the correct description and cost for americano with milk and sugar', function () {
+it('returns the correct description and cost for americano with milk and sugar', function (): void {
     $americano = new Drink("Americano", 2.30);
     $milk = new Milk();
     $sugar = new Sugar();
@@ -81,7 +81,7 @@ it('returns the correct description and cost for americano with milk and sugar',
     expect($americanoWithMilkAndSugar->getCost())->toBe(3.05);  // 2.30 + 0.50 + 0.25
 });
 
-it('returns the correct description and cost for deluxe hot chocolate', function () {
+it('returns the correct description and cost for deluxe hot chocolate', function (): void {
     $hotChocolate = new Drink("Hot Chocolate", 3.50);
     $milk = new Milk();
     $whippedCream = new WhippedCream();
@@ -108,7 +108,7 @@ it('returns the correct description and cost for deluxe hot chocolate', function
     expect($deluxeHotChocolate->getCost())->toBe(5.75);  // 3.50 + 0.50 + 0.85 + 0.45 + 0.45
 });
 
-it('returns the correct description and cost for espresso with multiple syrups', function () {
+it('returns the correct description and cost for espresso with multiple syrups', function (): void {
     $espresso = new Drink("Espresso", 2.50);
     $caramelSyrup = new FlavouredSyrup("Caramel");
     $vanillaSyrup = new FlavouredSyrup("Vanilla");
@@ -127,7 +127,7 @@ it('returns the correct description and cost for espresso with multiple syrups',
     expect($espressoWithSyrups->getCost())->toBe(3.40);  // 2.50 + 0.45 + 0.45
 });
 
-it('returns the correct description and cost for a basic espresso', function () {
+it('returns the correct description and cost for a basic espresso', function (): void {
     $espresso = new Drink("Espresso", 2.50);
     $basicEspresso = (clone $espresso);
 

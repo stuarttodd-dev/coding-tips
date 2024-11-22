@@ -8,25 +8,25 @@ class Query
 
     public function select(string $columns): self
     {
-        $this->query .= "SELECT {$columns} ";
+        $this->query .= sprintf('SELECT %s ', $columns);
         return $this;
     }
 
     public function from(string $table): self
     {
-        $this->query .= "FROM {$table} ";
+        $this->query .= sprintf('FROM %s ', $table);
         return $this;
     }
 
     public function where(string $condition): self
     {
-        $this->query .= "WHERE {$condition} ";
+        $this->query .= sprintf('WHERE %s ', $condition);
         return $this;
     }
 
     public function orderBy(string $column, string $direction = 'ASC'): self
     {
-        $this->query .= "ORDER BY {$column} {$direction} ";
+        $this->query .= sprintf('ORDER BY %s %s ', $column, $direction);
         return $this;
     }
 
