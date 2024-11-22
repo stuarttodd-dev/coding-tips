@@ -144,7 +144,6 @@ class Query
 ```
 
 #### Implementation
-The `Car` class uses a fluent interface to configure a car's attributes. It demonstrates how method chaining can be employed for object configuration, allowing for expressive and intuitive object customisation.
 
 ```php
 // Building a SQL-like query using the fluent interface
@@ -161,6 +160,7 @@ echo $sql;
 ```
 
 ### Car Example
+The `Car` class uses a fluent interface to configure a car's attributes. It demonstrates how method chaining can be employed for object configuration, allowing for expressive and intuitive object customisation.
 
 ```php
 <?php
