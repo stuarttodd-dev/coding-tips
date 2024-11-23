@@ -114,7 +114,7 @@ Concrete commands implement the `Command` interface and are responsible for dele
 These commands act as intermediaries between the `Invoker` and the `Receiver`, allowing you to centralize business logic within the receiver while keeping the commands lightweight.
 
 ```php
-class OpenFileCommand
+class OpenFileCommand implements Command
 {
     public function __construct(
         private FileManager $fileManager, 
@@ -130,7 +130,7 @@ class OpenFileCommand
     }
 }
 
-class SaveFileCommand
+class SaveFileCommand implements Command
 {
     public function __construct(
         private FileManager $fileManager, 
@@ -146,7 +146,7 @@ class SaveFileCommand
     }
 }
 
-class CloseFileCommand
+class CloseFileCommand implements Command
 {
     public function __construct(
         private FileManager $fileManager, 
