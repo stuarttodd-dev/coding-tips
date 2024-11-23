@@ -52,6 +52,8 @@ Examples include:
 - File Systems: Supporting local, cloud, or FTP storage.
 - Notification Systems: Sending emails vs. push notifications.
 
+Here we have an example of a `FileManager` acting as a receiver.
+
 ```php
 interface FileManager
 {
