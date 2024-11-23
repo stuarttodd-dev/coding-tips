@@ -1,5 +1,5 @@
 # Command Pattern
-This project demonstrates the use of the **Command Pattern** to encapsulate a request as an object, allowing you to parameterize methods, delay execution, or manage a queue of requests (e.g., a task scheduler). Each command encapsulates an action and its associated data, making it easy to manage tasks independently.
+This project demonstrates the use of the **Command Pattern** to encapsulate a request as an object, allowing you to parameterise methods, delay execution, or manage a queue of requests (e.g., a task scheduler). Each command encapsulates an action and its associated data, making it easy to manage tasks independently.
 
 ## Directory Structure
 ```
@@ -56,45 +56,44 @@ Here we have an example of a `FileManager` acting as a receiver:
 ```php
 interface FileManager
 {
-    public function open(string $fileName): void;
-    public function save(string $fileName): void;
-    public function close(string $fileName): void;
+    public function open(string $fileName): ?string;
+    public function save(string $fileName): ?string;
+    public function close(string $fileName): ?string;
 }
 
 class LocalStorage implements FileManager
 {
-    public function open(string $fileName): void
+    public function open(string $fileName): ?string
     {
-        echo "Opening local file: {$fileName}" . PHP_EOL;
+        return "Opening local file: {$fileName}" . PHP_EOL;
     }
 
-    public function save(string $fileName): void
+    public function save(string $fileName): ?string
     {
-        echo "Saving local file: {$fileName}" . PHP_EOL;
+        return "Saving local file: {$fileName}" . PHP_EOL;
     }
 
-    public function close(string $fileName): void
+    public function close(string $fileName): ?string
     {
-        echo "Closing local file: {$fileName}" . PHP_EOL;
+        return "Closing local file: {$fileName}" . PHP_EOL;
     }
 }
 
 class CloudStorage implements FileManager
 {
-    public function open(string $fileName): void
+    public function open(string $fileName): ?string
     {
-        echo "Connecting to cloud storage..." . PHP_EOL;
-        echo "Opening cloud file: {$fileName}" . PHP_EOL;
+        return "Connecting to cloud storage..." . PHP_EOL . "Opening cloud file: {$fileName}" . PHP_EOL;
     }
 
-    public function save(string $fileName): void
+    public function save(string $fileName): ?string
     {
-        echo "Saving file to cloud storage: {$fileName}" . PHP_EOL;
+        return "Saving file to cloud storage: {$fileName}" . PHP_EOL;
     }
 
-    public function close(string $fileName): void
+    public function close(string $fileName): ?string
     {
-        echo "Closing connection for cloud file: {$fileName}" . PHP_EOL;
+        return "Closing connection for cloud file: {$fileName}" . PHP_EOL;
     }
 }
 ```
@@ -105,61 +104,58 @@ The Command interface declares a method, often named `execute()`. This method is
 ```php
 interface Command
 {
-    public function execute(): void;
+    public function execute(): string;
 }
 ```
 
 ### 3. Create Concrete Command Classes
 Concrete commands implement the `Command` interface and are responsible for delegating the operation to a specific receiver. 
 
-These commands act as intermediaries between the `Invoker` and the `Receiver`, allowing you to centralize business logic within the receiver while keeping the commands lightweight.
+These commands act as intermediaries between the `Invoker` and the `Receiver`, allowing you to centralise business logic within the receiver while keeping the commands lightweight.
 
 ```php
 class OpenFileCommand implements Command
 {
     public function __construct(
-        private FileManager $fileManager, 
-        string $fileName
-    )
-    {
+        private FileManager $fileManager,
+        private string $fileName
+    ) {
         //
     }
 
-    public function execute(): void
+    public function execute(): string
     {
-        $this->fileManager->open($this->fileName);
+        return $this->fileManager->open($this->fileName);
     }
 }
 
 class SaveFileCommand implements Command
 {
     public function __construct(
-        private FileManager $fileManager, 
-        string $fileName
-    )
-    {
+        private FileManager $fileManager,
+        private string $fileName
+    ) {
         //
     }
 
-    public function execute(): void
+    public function execute(): string
     {
-        $this->fileManager->save($this->fileName);
+        return $this->fileManager->save($this->fileName);
     }
 }
 
 class CloseFileCommand implements Command
 {
     public function __construct(
-        private FileManager $fileManager, 
-        string $fileName
-    )
-    {
+        private FileManager $fileManager,
+        private string $fileName
+    ) {
         //
     }
 
-    public function execute(): void
+    public function execute(): string
     {
-        $this->fileManager->close($this->fileName);
+        return $this->fileManager->close($this->fileName);
     }
 }
 ```
@@ -177,13 +173,15 @@ class CommandInvoker
         $this->commands[] = $command;
     }
 
-    public function executeAll(): void
+    public function executeAll(): array
     {
+        $output = [];
         foreach ($this->commands as $command) {
-            $command->execute();
+            $output[] = $command->execute();
         }
-        
+
         $this->commands = [];
+        return $output;
     }
 }
 ```
