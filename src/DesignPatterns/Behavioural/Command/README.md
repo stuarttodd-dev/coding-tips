@@ -282,46 +282,29 @@ Additionally, maintaining and extending this logic becomes harder as it’s embe
 By keeping the receiver classes (like `LocalStorage` and `CloudStorage`), you separate concerns and allow the commands to remain simple and focused on orchestration, delegating the actual work to the appropriate receiver.
 
 ## What happens we don't use the Command Pattern at all?
-Without the command pattern, the invoker would call methods on the receiver directly, which tightly couples the invoker to the receiver. This makes it harder to:
+Without the **Command Pattern**, you would directly invoke methods on the `FileManager` (or any other class), which would lead to tight coupling between the invoker and the receiver. 
 
-- Change the logic of an action.
-- Add undo/redo functionality.
-- Queue or delay actions.
-
+For example, consider the following code:
 ```php
-$fileManager = new LocalStorage();
+$fileManager = new FileManager();
 $fileManager->open("example.txt");
 $fileManager->save("example.txt");
 $fileManager->close("example.txt");
 ```
 
-Suppose we have an application where we previously used local file storage. Now, we need to switch to a cloud-based system for file handling. 
-
-Without the **Command Pattern**, you’d need to find every place where files are being opened, saved, or closed and modify the logic there.
-
+We'd have to manually edit the FileManager class, maybe passing in a $storageType parameter:
 ```php
-// Current implementation using LocalStorage
-$fileManager = new LocalStorage();
-$fileManager->open("example.txt");
-$fileManager->save("example.txt");
-$fileManager->close("example.txt");
-
-// New implementation needed for CloudStorage
-$fileManager = new CloudStorage(); // Change to CloudStorage everywhere
-$fileManager->open("example.txt");
-$fileManager->save("example.txt");
-$fileManager->close("example.txt");
+$storageType = 'local';
+$fileManager = new FileManager($storageType);
 ```
 
-Let’s say you need to modify how the file is opened — for example, when opening a file in `CloudStorage`, you may need to authenticate first. 
-
-With the previous approach, you would have to go through all instances where file operations occur and add this logic:
-
+Then maybe, we're adding something like this throughout the class:
 ```php
-// Adding authentication logic everywhere (not ideal)
-$fileManager = new CloudStorage();
-$fileManager->authenticate();  // New logic to authenticate
-$fileManager->open("example.txt");
-$fileManager->save("example.txt");
-$fileManager->close("example.txt");
+if ($storageType == 'local') {
+    // Do local stuff
+} elseif ($storageType == 'cloud') {
+    // Do cloud stuff
+}
 ```
+Without the **Command Pattern**, you forgo the flexibility and structure it offers. You end up with tightly coupled classes, harder-to-maintain code, and a lack of extensibility. This approach works fine for small, simple use cases, but as complexity grows, the drawbacks become more apparent.
+
