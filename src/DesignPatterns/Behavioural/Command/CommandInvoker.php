@@ -6,6 +6,7 @@ use HalfShellStudios\CodingTips\DesignPatterns\Behavioural\Command\Interfaces\Co
 
 class CommandInvoker
 {
+    /** @var Command[] $commands */
     private array $commands = [];
 
     public function addCommand(Command $command): void
@@ -13,6 +14,9 @@ class CommandInvoker
         $this->commands[] = $command;
     }
 
+    /**
+     * @return array<int, string|null>
+     */
     public function executeAll(): array
     {
         $output = [];

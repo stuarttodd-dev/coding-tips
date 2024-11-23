@@ -4,7 +4,7 @@ namespace HalfShellStudios\CodingTips\DesignPatterns\Behavioural\Command\Alterna
 
 class FileManager
 {
-    public function __construct(private string $storageType = 'LocalStorage')
+    public function __construct(private readonly string $storageType = 'LocalStorage')
     {
         //
     }
@@ -12,30 +12,37 @@ class FileManager
     public function open(string $fileName): ?string
     {
         if ($this->storageType === 'LocalStorage') {
-            return "Opening local file: {$fileName}\n";
-        } elseif ($this->storageType === 'CloudStorage') {
-            return "Connecting to cloud storage...\n" .  "Opening cloud file: {$fileName}\n";
+            return sprintf('Opening local file: %s%s', $fileName, PHP_EOL);
         }
+
+        if ($this->storageType === 'CloudStorage') {
+            return "Connecting to cloud storage...\n" .  sprintf('Opening cloud file: %s%s', $fileName, PHP_EOL);
+        }
+
         return null;
     }
 
     public function save(string $fileName): ?string
     {
         if ($this->storageType === 'LocalStorage') {
-            echo "Saving data to local file: {$fileName}\n";
+            echo sprintf('Saving data to local file: %s%s', $fileName, PHP_EOL);
         } elseif ($this->storageType === 'CloudStorage') {
-            echo "Saving data to cloud file: {$fileName}\n";
+            echo sprintf('Saving data to cloud file: %s%s', $fileName, PHP_EOL);
         }
+
         return null;
     }
 
     public function close(string $fileName): ?string
     {
         if ($this->storageType === 'LocalStorage') {
-            return "Closing local file: {$fileName}\n";
-        } elseif ($this->storageType === 'CloudStorage') {
-            return "Closing connection to cloud storage for file: {$fileName}\n";
+            return sprintf('Closing local file: %s%s', $fileName, PHP_EOL);
         }
+
+        if ($this->storageType === 'CloudStorage') {
+            return sprintf('Closing connection to cloud storage for file: %s%s', $fileName, PHP_EOL);
+        }
+
         return null;
     }
 }

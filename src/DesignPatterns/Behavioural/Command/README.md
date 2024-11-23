@@ -104,7 +104,7 @@ The Command interface declares a method, often named `execute()`. This method is
 ```php
 interface Command
 {
-    public function execute(): string;
+    public function execute(): ?string;
 }
 ```
 
@@ -123,7 +123,7 @@ class OpenFileCommand implements Command
         //
     }
 
-    public function execute(): string
+    public function execute(): ?string
     {
         return $this->fileManager->open($this->fileName);
     }
@@ -138,7 +138,7 @@ class SaveFileCommand implements Command
         //
     }
 
-    public function execute(): string
+    public function execute(): ?string
     {
         return $this->fileManager->save($this->fileName);
     }
@@ -153,7 +153,7 @@ class CloseFileCommand implements Command
         //
     }
 
-    public function execute(): string
+    public function execute(): ?string
     {
         return $this->fileManager->close($this->fileName);
     }

@@ -8,13 +8,14 @@ use HalfShellStudios\CodingTips\DesignPatterns\Behavioural\Command\Interfaces\Fi
 class CloseFileCommand implements Command
 {
     public function __construct(
-        private FileManager $fileManager,
-        private string $fileName
+        private readonly FileManager $fileManager,
+        private readonly string $fileName
     ) {
         //
     }
 
-    public function execute(): string
+    #[\Override]
+    public function execute(): ?string
     {
         return $this->fileManager->close($this->fileName);
     }

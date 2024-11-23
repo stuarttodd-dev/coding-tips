@@ -10,7 +10,7 @@ use HalfShellStudios\CodingTips\DesignPatterns\Behavioural\Command\ConcreteComma
 use HalfShellStudios\CodingTips\DesignPatterns\Behavioural\Command\CommandInvoker;
 use HalfShellStudios\CodingTips\DesignPatterns\Behavioural\Command\AlternativeVersion\FileManager;
 
-it('executes all queued commands in the invoker (LocalStorage)', function () {
+it('executes all queued commands in the invoker (LocalStorage)', function (): void {
     $fileManager = new LocalStorage();
     $fileName = 'example.txt';
     $openCommand = new OpenFileCommand($fileManager, $fileName);
@@ -31,7 +31,7 @@ it('executes all queued commands in the invoker (LocalStorage)', function () {
     ]);
 });
 
-it('executes all queued commands in the invoker (CloudStorage)', function () {
+it('executes all queued commands in the invoker (CloudStorage)', function (): void {
     $fileManager = new CloudStorage();
     $fileName = 'example.txt';
     $openCommand = new OpenFileCommand($fileManager, $fileName);
@@ -52,16 +52,16 @@ it('executes all queued commands in the invoker (CloudStorage)', function () {
     ]);
 });
 
-it('opens a local file', function () {
+it('opens a local file', function (): void {
     $fileManager = new FileManager('LocalStorage');
     $fileName = 'example.txt';
 
     $output = $fileManager->open($fileName);
 
-    expect($output)->toBe("Opening local file: {$fileName}\n");
+    expect($output)->toBe(sprintf('Opening local file: %s%s', $fileName, PHP_EOL));
 });
 
-it('saves a local file', function () {
+it('saves a local file', function (): void {
     $fileManager = new FileManager('LocalStorage');
     $fileName = 'example.txt';
 
@@ -69,19 +69,19 @@ it('saves a local file', function () {
     $fileManager->save($fileName);
     $output = ob_get_clean();
 
-    expect($output)->toBe("Saving data to local file: {$fileName}\n");
+    expect($output)->toBe(sprintf('Saving data to local file: %s%s', $fileName, PHP_EOL));
 });
 
-it('closes a local file', function () {
+it('closes a local file', function (): void {
     $fileManager = new FileManager('LocalStorage');
     $fileName = 'example.txt';
 
     $output = $fileManager->close($fileName);
 
-    expect($output)->toBe("Closing local file: {$fileName}\n");
+    expect($output)->toBe(sprintf('Closing local file: %s%s', $fileName, PHP_EOL));
 });
 
-it('opens a cloud file', function () {
+it('opens a cloud file', function (): void {
     $fileManager = new FileManager('CloudStorage');
     $fileName = 'example.txt';
 
@@ -89,11 +89,11 @@ it('opens a cloud file', function () {
 
     expect($output)->toBe(
         "Connecting to cloud storage...\n" .
-        "Opening cloud file: {$fileName}\n"
+        sprintf('Opening cloud file: %s%s', $fileName, PHP_EOL)
     );
 });
 
-it('saves a cloud file', function () {
+it('saves a cloud file', function (): void {
     $fileManager = new FileManager('CloudStorage');
     $fileName = 'example.txt';
 
@@ -101,19 +101,19 @@ it('saves a cloud file', function () {
     $fileManager->save($fileName);
     $output = ob_get_clean();
 
-    expect($output)->toBe("Saving data to cloud file: {$fileName}\n");
+    expect($output)->toBe(sprintf('Saving data to cloud file: %s%s', $fileName, PHP_EOL));
 });
 
-it('closes a cloud file', function () {
+it('closes a cloud file', function (): void {
     $fileManager = new FileManager('CloudStorage');
     $fileName = 'example.txt';
 
     $output = $fileManager->close($fileName);
 
-    expect($output)->toBe("Closing connection to cloud storage for file: {$fileName}\n");
+    expect($output)->toBe(sprintf('Closing connection to cloud storage for file: %s%s', $fileName, PHP_EOL));
 });
 
-it('returns null for unsupported storage type', function () {
+it('returns null for unsupported storage type', function (): void {
     $fileManager = new FileManager('UnsupportedStorage');
     $fileName = 'example.txt';
 

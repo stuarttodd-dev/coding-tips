@@ -4,5 +4,5 @@ namespace HalfShellStudios\CodingTips\DesignPatterns\Behavioural\Command\Interfa
 
 interface Command
 {
-    public function execute(): string;
+    public function execute(): ?string;
 }

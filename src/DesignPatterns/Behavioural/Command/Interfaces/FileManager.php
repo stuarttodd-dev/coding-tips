@@ -5,6 +5,8 @@ namespace HalfShellStudios\CodingTips\DesignPatterns\Behavioural\Command\Interfa
 interface FileManager
 {
     public function open(string $fileName): ?string;
+
     public function save(string $fileName): ?string;
+
     public function close(string $fileName): ?string;
 }
