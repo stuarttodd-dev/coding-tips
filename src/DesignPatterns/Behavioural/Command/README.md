@@ -3,20 +3,21 @@ This project demonstrates the use of the **Command Pattern** to encapsulate a re
 
 ## Directory Structure
 ```
-Directory Structure
-css
-Copy code
 └── src  
     └── DesignPatterns  
         └── Behavioural   
             └── Command  
-                └── Abstractions  
+                └── Interfaces  
                     └── Command.php  
+                    └── FileManager.php  
+                ├── Receivers
+                      ├── LocalStorage.php  
+                      ├── CloudStorage.php  
                 ├── ConcreteCommands  
-                    ├── SendEmailCommand.php  
-                    ├── GenerateReportCommand.php  
-                └── Invoker.php  
-                └── Receiver.php  
+                    ├── OpenFileCommand.php  
+                    ├── SaveFileCommand.php  
+                    ├── CloseFileCommand.php  
+                └── CommandInvoker.php  
 └── tests  
     └── Unit  
         └── DesignPatterns  
@@ -25,11 +26,14 @@ Copy code
 ```
 
 ### Files Overview
-- **Abstractions/Command.php**: Defines the Command interface with a method execute() that all concrete commands must implement.
-- **ConcreteCommands/SendEmailCommand.php**: Implements a concrete command for sending an email.
-- **ConcreteCommands/GenerateReportCommand.php**: Implements a concrete command for generating a report.
-- **Invoker.php**: Manages the queue of commands, acting as a task scheduler. It allows you to add commands to the queue and execute them.
-- **Receiver.php**: Defines the actual actions that the commands delegate their work to. For instance, sending an email or generating a report.
+- **Interfaces/Command.php**: Defines the `Command` interface with a method execute() that all concrete commands must implement.
+- **Interfaces/FileManager.php**: Defines the `FileManager` interface with a method `open()`, `save()` and `close()` methods that all concrete file managers must implement.
+- **Receivers/LocalStorage.php**: Implements a concrete file manager for managing storage locally.
+- **Receivers/CloudStorage.php**: Implements a concrete file manager for managing storage via the cloud.
+- **ConcreteCommands/OpenFileCommand.php**: Implements a concrete command for opening a file.
+- **ConcreteCommands/SaveFileCommand.php**: Implements a concrete command for saving a file.
+- **ConcreteCommands/CloseFileCommand.php**: Implements a concrete command for closing a file.
+- **CommandInvoker.php**: Defines the actual actions that the commands delegate their work to. For instance, sending an email or generating a report.
 
 ## Running Tests
 You can execute the tests using the following command:
