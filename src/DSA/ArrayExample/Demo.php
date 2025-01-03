@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace HalfShellStudios\CodingTips\DSA;
+namespace HalfShellStudios\CodingTips\DSA\ArrayExample;
 
-class ArrayDemo
+class Demo
 {
     /**
      * @return int[]
@@ -29,6 +29,7 @@ class ArrayDemo
     public function insertElement(array &$array, int $index, int $value): array
     {
         array_splice($array, $index, 0, [$value]);
+
         return $array;
     }
 
@@ -42,6 +43,7 @@ class ArrayDemo
             unset($array[$index]);
             $array = array_values($array);
         }
+
         return $array;
     }
 }
