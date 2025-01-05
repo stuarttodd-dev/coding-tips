@@ -49,8 +49,6 @@ class DatabaseConnection {
 }
 
 class FileHandler {
-    private resource|false $file;
-
     public function open(string $filename, string $mode) {
         // Open File
     }
