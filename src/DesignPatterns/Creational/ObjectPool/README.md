@@ -19,10 +19,10 @@ This project demonstrates the Object Pool Pattern in PHP by implementing a payme
 ```
 
 ### Files Overview
-- **Resources/DatabaseConnection.php**: description
-- **Resources/FileHandler.php**: description
-- **ObjectPool.php**: description
-- **tests/Unit/DesignPatterns/Creational/ObjectPoolTest.php**: description
+- **Resources/DatabaseConnection.php**: Contains a class that simulates a database connection, with methods for connecting and disconnecting from a database. This class will be used to demonstrate object reuse by managing database connections in a pool.
+- **Resources/FileHandler.php**: Defines a class for handling file operations, including opening and closing files. This class will be used to demonstrate the object pool pattern by reusing file handler instances.
+- **ObjectPool.php**: This file contains the `ObjectPool` class, which is responsible for managing the pool of reusable objects. It provides methods for acquiring and releasing objects, keeping track of available and in-use objects.
+- **tests/Unit/DesignPatterns/Creational/ObjectPoolTest.php**: Contains unit tests to verify that the `ObjectPool` class works correctly. It ensures objects are being properly reused, acquired, and released from the pool.
 
 ## Running Tests
 You can execute the tests using the following command:
