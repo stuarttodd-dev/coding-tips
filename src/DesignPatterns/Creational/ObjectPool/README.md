@@ -109,14 +109,14 @@ class ObjectPool
 }
 ```
 
-Let’s down this class down.
+Let’s break down this class down.
 
 - **available**: Stores unused instances.
 - **inUse**: Tracks currently used instances.
 - **acquire()**: Provides an object from the pool or creates a new one if none are available.
 - **release()**: Returns an object to the pool for reuse.
 
-Let’s see it in action.
+And finally, let’s see it in action.
 
 ```php
 // Database Connect Example
