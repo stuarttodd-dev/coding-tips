@@ -28,7 +28,7 @@
     },
     "scripts": {
         "tests": "./vendor/bin/pest",
-        "phpcs": "./vendor/bin/phpcs --standard=PSR12 --report=summary src/",
+        "phpcs": "./vendor/bin/phpcs --standard=PSR12 src/",
         "phpcbf": "./vendor/bin/phpcbf --standard=PSR12 src/",
         "phpmd": "./vendor/bin/phpmd src/ text cleancode,codesize,controversial,design,naming,unusedcode",
         "phpstan": "./vendor/bin/phpstan analyse src/ --level max",
