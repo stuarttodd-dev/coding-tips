@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HalfShellStudios\CodingTips\Tips;
+namespace HalfShellStudios\CodingTips\Tips\Currying;
 
 /**
  * Usage:
