@@ -78,7 +78,7 @@ $request = [
     
 // Run the request through the chain.
 // If request is invalid, an appropriate exception is thrown.
-$authHandler->handle($request)
+$authHandler->handle($request);
 ```
 
 ### Advantages

@@ -3,7 +3,7 @@
 use HalfShellStudios\CodingTips\Tips\DTOs\UserDTO;
 use HalfShellStudios\CodingTips\Tips\DTOs\SimpleUserDTO;
 
-it('can create a UserDTO instance', function () {
+it('can create a UserDTO instance', function (): void {
     $user = new UserDTO(
         name: 'John Doe',
         email: 'johndoe@example.com',
@@ -16,7 +16,7 @@ it('can create a UserDTO instance', function () {
         ->age->toBe(30);
 });
 
-it('can create a UserDTO instance from response', function () {
+it('can create a UserDTO instance from response', function (): void {
     $response = [
         'full_name' => 'Jane Smith',
         'email_address' => 'janesmith@example.com',
@@ -31,7 +31,7 @@ it('can create a UserDTO instance from response', function () {
         ->age->toBe(25);
 });
 
-it('can create a SimpleUserDTO instance', function () {
+it('can create a SimpleUserDTO instance', function (): void {
     $user = new SimpleUserDTO(
         name: 'Alice Johnson',
         email: 'alicejohnson@example.com',
