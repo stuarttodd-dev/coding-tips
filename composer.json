@@ -31,6 +31,7 @@
         "phpcs": "./vendor/bin/phpcs --standard=PSR12 src/",
         "phpcbf": "./vendor/bin/phpcbf --standard=PSR12 src/",
         "phpmd": "./vendor/bin/phpmd src/ text cleancode,codesize,controversial,design,naming,unusedcode",
+        "phpmd:baseline": "./vendor/bin/phpmd src/ xml cleancode,codesize,controversial,design,naming,unusedcode --baseline-file phpmd.baseline.xml --generate-baseline",
         "phpstan": "./vendor/bin/phpstan analyse src/ --level max",
         "rector:dry-run": "./vendor/bin/rector process --dry-run",
         "rector": "./vendor/bin/rector process",
