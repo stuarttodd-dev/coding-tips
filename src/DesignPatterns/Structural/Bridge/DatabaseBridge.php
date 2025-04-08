@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace HalfShellStudios\CodingTips\DesignPatterns\Structural\Bridge;
 
-use HalfShellStudios\CodingTips\DesignPatterns\Structural\Bridge\DatabaseManager;
-
-class DatabaseService extends DatabaseManager
+class DatabaseBridge implements DatabaseDriver
 {
+    public function __construct(protected DatabaseDriver $database)
+    {
+        //
+    }
+
+    #[\Override]
     public function connect(): string
     {
         return $this->database->connect();
     }
 
+    #[\Override]
     public function getUser(int $userId): string
     {
         return $this->database->getUser($userId);

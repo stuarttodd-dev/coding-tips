@@ -9,7 +9,7 @@ use HalfShellStudios\CodingTips\DesignPatterns\Structural\Facade\Subsystems\Powe
 use HalfShellStudios\CodingTips\DesignPatterns\Structural\Facade\Subsystems\StabiliserService;
 use HalfShellStudios\CodingTips\DesignPatterns\Structural\Facade\Subsystems\TargetingService;
 
-class PostgreSQLService
+class PostgreSQLDriver
 {
     public function connect(): string
     {
@@ -18,7 +18,6 @@ class PostgreSQLService
 
     public function getUser(int $userId): string
     {
-        // Imagine this is a raw SQL query
-        return "Fetching user from PostgreSQL with ID: {$userId}";
+        return 'Fetching user from PostgreSQL with ID: ' . $userId;
     }
 }

@@ -26,14 +26,13 @@ Use the Bridge Pattern when:
         └── Structural   
             └── Bridge  
                 └── OriginalCode
-                    └── MySQLService.php  
-                    └── PostgreSQLService.php  
+                    └── MySQLDriver.php  
+                    └── PostgreSQLDriver.php  
                 └── Implementations  
-                    └── MySQLDatabase.php 
-                    └── PostgreSQLDatabase.php 
-                └── DatabaseInterface.php 
-                └── DatabaseManager.php 
-                └── DatabaseService.php 
+                    └── MySQLConnection.php 
+                    └── PostgreSQLConnection.php 
+                └── DatabaseDriver.php 
+                └── DatabaseBridge.php 
 └── tests  
     └── Unit  
         └── DesignPatterns  
@@ -46,7 +45,7 @@ The Bridge Pattern helps separate the abstraction (e.g., user management) from t
 
 ### Step 1: Create an Interface for Database Operations
 ```php
-interface DatabaseInterface
+interface DatabaseDriver
 {
     public function connect(): string;
     public function getUser(int $id): string;
@@ -55,7 +54,7 @@ interface DatabaseInterface
 
 ### Step 2: Concrete Implementations of the Database Interface
 ```php
-class MySQLDatabase implements DatabaseInterface
+class MySQLConnection implements DatabaseDriver
 {
     public function connect(): string
     {
@@ -68,7 +67,7 @@ class MySQLDatabase implements DatabaseInterface
     }
 }
 
-class PostgreSQLDatabase implements DatabaseInterface
+class PostgreSQLDriver implements DatabaseDriver
 {
     public function connect(): string
     {
@@ -82,44 +81,34 @@ class PostgreSQLDatabase implements DatabaseInterface
 }
 ```
 
-### Step 3: Create the Abstraction
+### Step 3: Create the Bridge
 ```php
-abstract class DatabaseManager
+class DatabaseBridge implements DatabaseDriver
 {
-    public function __construct(protected DatabaseInterface $database)
+    public function __construct(protected DatabaseDriver $database)
     {
-    
+        //
     }
 
-    abstract public function connect(): string;
-    abstract public function getUser(int $id): string;
-}
-```
-
-### Step 4: Concrete Class that Extends the Abstraction
-```php
-class DatabaseService extends DatabaseManager
-{
     public function connect(): string
     {
         return $this->database->connect();
     }
 
-    public function getUser(int $id): string
+    public function getUser(int $userId): string
     {
-        return $this->database->getUser($id);
+        return $this->database->getUser($userId);
     }
 }
 ```
 
 ### File Overview
-- **OriginalCode/MySQLService.php**: Contains code tightly coupled to MySQL for user management, directly handling database operations.
-- **OriginalCode/PostgreSQLService.php**: Contains code tightly coupled to PostgreSQL for user management, directly handling database operations.
-- **Implementations/MySQLDatabase.php**: Defines concrete class for database system (MySQL).
-- **Implementations/PostgreSQLDatabase.php**: Defines concrete class for database system (PostgreSQL).
-- **DatabaseInterface.php**: Defines an interface for database systems (MySQL and PostgreSQL).
-- **DatabaseManager.php**: The base class that delegates the actual database operations (connecting, fetching user) to the injected `DatabaseInterface` implementation.
-- **DatabaseService.php**: Concrete class that extends `DatabaseManager` and provides implementation for the abstract methods. It interacts with the actual `DatabaseInterface` implementation.
+- **OriginalCode/MySQLDriver.php**: Contains code tightly coupled to MySQL for user management, directly handling database operations.
+- **OriginalCode/PostgreSQLDriver.php**: Contains code tightly coupled to PostgreSQL for user management, directly handling database operations.
+- **Implementations/MySQLConnection.php**: Defines concrete class for database system (MySQL).
+- **Implementations/PostgreConnection.php**: Defines concrete class for database system (PostgreSQL).
+- **DatabaseDriver.php**: Defines an interface for database systems (MySQL and PostgreSQL).
+- **DatabaseBridge.php**: The base class that delegates the actual database operations (connecting, fetching user) to the injected `DatabaseDriver` implementation.
 - **tests/Unit/DesignPatterns/Structural/BridgeTest.php**: Contains Pest tests to verify that the Bridge pattern works as expected. It tests both database managers and ensures the correct interaction between the abstractions and concrete implementations.
 
 ### Advantages

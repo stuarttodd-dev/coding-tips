@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace HalfShellStudios\CodingTips\DesignPatterns\Structural\Bridge\OriginalCode;
 
-class MySQLService
+class MySQLDriver
 {
     public function connect(): string
     {
@@ -13,7 +13,6 @@ class MySQLService
 
     public function getUser(int $userId): string
     {
-        // Imagine this is a raw SQL query
-        return "Fetching user from MySQL with ID: {$userId}";
+        return 'Fetching user from MySQL with ID: ' . $userId;
     }
 }
