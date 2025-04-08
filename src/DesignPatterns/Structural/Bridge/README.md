@@ -133,7 +133,7 @@ echo $advancedRemote->mute();   // "Muting the radio"
 - **_OriginalCode/TvRemote.php, RadioRemote.php, AdvancedTvRemote.php, AdvancedRadioRemote.php**: Contains tightly coupled code where each remote is directly associated with a specific device (e.g., TV or Radio). As new devices or remote control features are introduced, this will lead to class explosion, creating more subclasses for each combination (e.g., AdvancedRadioRemote, AdvancedTVRemote, etc.), which is difficult to maintain and scale.
 - **Devices/Interface/Device.php**: Defines a generic interface for devices that can be controlled by remotes. This interface enforces a common contract for devices, such as turning on, turning off, etc., making the design more extensible and adaptable.
 - **Devices/Television.php, Radio.php**: These are concrete classes that implement the Device interface. The Television class handles TV-specific logic (e.g., turning on the TV), while the Radio class handles radio-specific logic. By using the Device interface, these classes allow flexibility, enabling the use of different types of devices without tightly coupling them with specific remotes.
-- **Remotes/BasicRemoteControl.php, AdvancedRemoteControl.php**: These are the remote control classes that implement the respective capabilities (e.g., power, mute, input). BasicRemoteControl provides basic functionality like turning a device on or off, while AdvancedRemoteControl can include additional features like muting or changing input. These classes use interfaces like Powerable, Muteable, etc., to allow behavior flexibility without unnecessary class inheritance. For example, a remote can implement only the capabilities it needs.
+- **Remotes/BasicRemoteControl.php, AdvancedRemoteControl.php**: These are the remote control classes. BasicRemoteControl provides basic functionality like turning a device on or off, while AdvancedRemoteControl can include additional features like muting or changing input. These classes are injected with a class that implements the `Device` interface, to allow behavior flexibility without unnecessary class inheritance.
 - **tests/Unit/DesignPatterns/Structural/BridgeTest.php**: This file contains Pest tests to verify that the Bridge pattern works as expected. The tests would check the correct behavior when switching between different devices (e.g., TV and Radio) and remotes (e.g., basic and advanced). It ensures that the Bridge pattern decouples the device and remote control logic properly and allows flexibility when introducing new devices or new capabilities (like mute or change input).
 
 ### Advantages
@@ -143,7 +143,6 @@ echo $advancedRemote->mute();   // "Muting the radio"
 
 ### Disadvantages
 - **Complexity**: Introduces additional layers, which may increase the system's complexity.
-- **Too Many Classes**: Can result in an increase in the number of classes, leading to potential maintenance overhead.
 
 ## Running Tests
 You can execute the tests using the following command:
