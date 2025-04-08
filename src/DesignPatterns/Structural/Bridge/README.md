@@ -25,14 +25,19 @@ Use the Bridge Pattern when:
     └── DesignPatterns  
         └── Structural   
             └── Bridge  
-                └── OriginalCode
-                    └── MySQLDriver.php  
-                    └── PostgreSQLDriver.php  
-                └── Implementations  
-                    └── MySQLConnection.php 
-                    └── PostgreSQLConnection.php 
-                └── DatabaseDriver.php 
-                └── DatabaseBridge.php 
+                └── _OriginalCode
+                    └── AdvancedRadioRemote.php  
+                    └── AdvancedTVRemote.php
+                    └── RadioRemote.php
+                    └── TVRemote.php
+                └── Devices  
+                    └── Interface
+                        └── Device.php 
+                    └── Radio.php 
+                    └── Television.php 
+                └── Remotes
+                    └── AdvancedRemoteControl.php
+                    └── BasicRemoteControl.php
 └── tests  
     └── Unit  
         └── DesignPatterns  
@@ -41,75 +46,95 @@ Use the Bridge Pattern when:
 ```
 
 ## Implementation Example
-The Bridge Pattern helps separate the abstraction (e.g., user management) from the implementation (e.g., MySQL or PostgreSQL). Here's a breakdown of how the pattern works:
+Let’s say you’re designing a universal remote control system.
 
-### Step 1: Create an Interface for Database Operations
+### Step 1: Define the Device Interface
 ```php
-interface DatabaseDriver
+interface Device
 {
-    public function connect(): string;
-    public function getUser(int $id): string;
+    public function turnOn(): string;
+    public function mute(): string;
 }
 ```
 
-### Step 2: Concrete Implementations of the Database Interface
+### Step 2: Implement Concrete Devices
 ```php
-class MySQLConnection implements DatabaseDriver
+class Television implements Device
 {
-    public function connect(): string
+    public function turnOn(): string
     {
-        return "Connecting to MySQL database.";
+        return "Turning on the TV";
     }
 
-    public function getUser(int $id): string
+    public function mute(): string
     {
-        return "Fetching user from MySQL with ID: {$id}";
+        return "Muting the TV";
     }
 }
 
-class PostgreSQLDriver implements DatabaseDriver
+class Radio implements Device
 {
-    public function connect(): string
+    public function turnOn(): string
     {
-        return "Connecting to PostgreSQL database.";
+        return "Turning on the radio";
     }
 
-    public function getUser(int $id): string
+    public function mute(): string
     {
-        return "Fetching user from PostgreSQL with ID: {$id}";
+        return "Muting the radio";
     }
 }
 ```
 
-### Step 3: Create the Bridge
+### Step 3: Create the Remote Abstractions (Bridge Part)
+We create a `RemoteControl` that delegates to the Device.
+
 ```php
-class DatabaseBridge implements DatabaseDriver
+class RemoteControl
 {
-    public function __construct(protected DatabaseDriver $database)
+    public function __construct(protected Device $device)
     {
         //
     }
 
-    public function connect(): string
+    public function turnOn(): string
     {
-        return $this->database->connect();
+        return $this->device->turnOn();
     }
+}
+```
+Now, the remote doesn’t care what kind of device it’s controlling. Plug in a `TV`, `Radio`, whatever — the API stays the same.
 
-    public function getUser(int $userId): string
+And if f you wanted an advanced remote control?
+```php
+class AdvancedRemoteControl extends RemoteControl
+{
+    public function mute(): string
     {
-        return $this->database->getUser($userId);
+        return $this->device->mute();
     }
 }
 ```
 
+### Step 4: Putting it together
+```php
+$tv = new Television();
+$radio = new Radio();
+
+$basicRemote = new RemoteControl($tv);
+echo $basicRemote->turnOn(); // "Turning on the TV"
+
+$advancedRemote = new AdvancedRemoteControl($radio);
+echo $advancedRemote->turnOn(); // "Turning on the radio"
+echo $advancedRemote->mute();   // "Muting the radio"
+```
+
 ### File Overview
-- **OriginalCode/MySQLDriver.php**: Contains code tightly coupled to MySQL for user management, directly handling database operations.
-- **OriginalCode/PostgreSQLDriver.php**: Contains code tightly coupled to PostgreSQL for user management, directly handling database operations.
-- **Implementations/MySQLConnection.php**: Defines concrete class for database system (MySQL).
-- **Implementations/PostgreConnection.php**: Defines concrete class for database system (PostgreSQL).
-- **DatabaseDriver.php**: Defines an interface for database systems (MySQL and PostgreSQL).
-- **DatabaseBridge.php**: The base class that delegates the actual database operations (connecting, fetching user) to the injected `DatabaseDriver` implementation.
-- **tests/Unit/DesignPatterns/Structural/BridgeTest.php**: Contains Pest tests to verify that the Bridge pattern works as expected. It tests both database managers and ensures the correct interaction between the abstractions and concrete implementations.
+- **_OriginalCode/TvRemote.php, RadioRemote.php, AdvancedTvRemote.php, AdvancedRadioRemote.php**: Contains tightly coupled code where each remote is directly associated with a specific device (e.g., TV or Radio). As new devices or remote control features are introduced, this will lead to class explosion, creating more subclasses for each combination (e.g., AdvancedRadioRemote, AdvancedTVRemote, etc.), which is difficult to maintain and scale.
+- **Devices/Interface/Device.php**: Defines a generic interface for devices that can be controlled by remotes. This interface enforces a common contract for devices, such as turning on, turning off, etc., making the design more extensible and adaptable.
+- **Devices/Television.php, Radio.php**: These are concrete classes that implement the Device interface. The Television class handles TV-specific logic (e.g., turning on the TV), while the Radio class handles radio-specific logic. By using the Device interface, these classes allow flexibility, enabling the use of different types of devices without tightly coupling them with specific remotes.
+- **Remotes/BasicRemoteControl.php, AdvancedRemoteControl.php**: These are the remote control classes that implement the respective capabilities (e.g., power, mute, input). BasicRemoteControl provides basic functionality like turning a device on or off, while AdvancedRemoteControl can include additional features like muting or changing input. These classes use interfaces like Powerable, Muteable, etc., to allow behavior flexibility without unnecessary class inheritance. For example, a remote can implement only the capabilities it needs.
+- **tests/Unit/DesignPatterns/Structural/BridgeTest.php**: This file contains Pest tests to verify that the Bridge pattern works as expected. The tests would check the correct behavior when switching between different devices (e.g., TV and Radio) and remotes (e.g., basic and advanced). It ensures that the Bridge pattern decouples the device and remote control logic properly and allows flexibility when introducing new devices or new capabilities (like mute or change input).
 
 ### Advantages
 - **Separation of Concerns**: Decouples abstraction from implementation, making each easier to change independently.

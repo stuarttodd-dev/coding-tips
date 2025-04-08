@@ -2,37 +2,46 @@
 
 declare(strict_types=1);
 
-use HalfShellStudios\CodingTips\DesignPatterns\Structural\Bridge\DatabaseBridge;
-use HalfShellStudios\CodingTips\DesignPatterns\Structural\Bridge\Implementations\MySQLConnection;
-use HalfShellStudios\CodingTips\DesignPatterns\Structural\Bridge\Implementations\PostgreSQLConnection;
+use HalfShellStudios\CodingTips\DesignPatterns\Structural\Bridge\Devices\Radio;
+use HalfShellStudios\CodingTips\DesignPatterns\Structural\Bridge\Devices\Television;
+use HalfShellStudios\CodingTips\DesignPatterns\Structural\Bridge\Remotes\BasicRemoteControl;
+use HalfShellStudios\CodingTips\DesignPatterns\Structural\Bridge\Remotes\AdvancedRemoteControl;
 
-it('connects and fetches user using MySQL', function (): void {
-    $service = new DatabaseBridge(new MySQLConnection());
+it('can turn on the radio using the basic remote', function (): void {
+    $radio = new Radio();
+    $basicRemote = new BasicRemoteControl($radio);
 
-    expect($service->connect())
-        ->toBe('Connecting to MySQL database.');
-
-    expect($service->getUser(42))
-        ->toBe('Fetching user from MySQL with ID: 42');
+    expect($basicRemote->turnOn())->toEqual('Turning on the radio');
 });
 
-it('connects and fetches user using PostgreSQL', function (): void {
-    $service = new DatabaseBridge(new PostgreSQLConnection());
+it('can mute the radio using the advanced remote', function (): void {
+    $radio = new Radio();
+    $advancedRemote = new AdvancedRemoteControl($radio);
 
-    expect($service->connect())
-        ->toBe('Connecting to PostgreSQL database.');
-
-    expect($service->getUser(42))
-        ->toBe('Fetching user from PostgreSQL with ID: 42');
+    expect($advancedRemote->mute())->toEqual('Muting the radio');
 });
 
-it('can switch connection types dynamically', function (): void {
-    $mysql = new DatabaseBridge(new MySQLConnection());
-    $pgsql = new DatabaseBridge(new PostgreSQLConnection());
+it('can turn on the television using the basic remote', function (): void {
+    $tv = new Television();
+    $basicRemote = new BasicRemoteControl($tv);
 
-    expect($mysql->connect())->toBe('Connecting to MySQL database.');
-    expect($mysql->getUser(1))->toBe('Fetching user from MySQL with ID: 1');
+    expect($basicRemote->turnOn())->toEqual('Turning on the television');
+});
 
-    expect($pgsql->connect())->toBe('Connecting to PostgreSQL database.');
-    expect($pgsql->getUser(1))->toBe('Fetching user from PostgreSQL with ID: 1');
+it('can mute the television using the advanced remote', function (): void {
+    $tv = new Television();
+    $advancedRemote = new AdvancedRemoteControl($tv);
+
+    expect($advancedRemote->mute())->toEqual('Muting the television');
+});
+
+it('can switch between devices and remotes', function (): void {
+    $radio = new Radio();
+    $tv = new Television();
+
+    $basicRemoteForRadio = new BasicRemoteControl($radio);
+    $advancedRemoteForTV = new AdvancedRemoteControl($tv);
+
+    expect($basicRemoteForRadio->turnOn())->toEqual('Turning on the radio');
+    expect($advancedRemoteForTV->mute())->toEqual('Muting the television');
 });
