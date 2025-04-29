@@ -17,8 +17,6 @@ Here’s the full directory structure for our Composite Pattern example:
                     └── File.php  
                     └── Folder.php  
                     └── Item.php  
-                └── Client.php  
-                └── FileSystem.php  
 └── tests  
     └── Unit  
         └── DesignPatterns  
@@ -31,8 +29,6 @@ Here’s the full directory structure for our Composite Pattern example:
 - **Components/File.php**: The `File` class represents a leaf component in the composition. It is a basic file with no child components. It has its own specific behaviour, like calculating size or displaying content.
 - **Components/Folder.php**: The `Folder` class represents a composite component. It can contain other `File` or `Folder` objects (children). It allows for adding/removing child components and delegates behaviour to its children, such as calculating the total size of all its contents.
 - **Components/Item.php**: The `Item` interface defines common behaviour for both files and folders. Both `File` and `Folder` implement this interface, allowing them to be treated uniformly.
-- **FileSystem.php**: The `FileSystem` class is responsible for managing the entire collection of items (files and folders). It can iterate over the items and perform operations like calculating total size, listing files, or managing the structure.
-- **Client.php**: The `Client` class demonstrates how to use the FileSystem and interact with both files and folders, treating them uniformly.
 - **tests/Unit/DesignPatterns/Structural/CompositeTest.php**: Unit tests for the above classes, testing the behaviour of individual files, folders, and composite operations.
 
 ## Running Tests
