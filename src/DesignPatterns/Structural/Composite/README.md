@@ -209,6 +209,10 @@ if ($foundItem) {
 } else {
     echo "File not found.\n";
 }
+
+// Print directory structure
+echo "\nProject Structure:\n";
+$root->list();
 ```
 
 You can now add new payment gateways without modifying the `PaymentService` class.
