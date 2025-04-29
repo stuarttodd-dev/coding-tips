@@ -2,11 +2,11 @@
 
 use HalfShellStudios\CodingTips\Tips\EarlyReturns\Before;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->validator = new Before();
 });
 
-test('valid user returns true', function () {
+test('valid user returns true', function (): void {
     $user = [
         'age' => 25,
         'email' => 'test@example.com',
@@ -16,7 +16,7 @@ test('valid user returns true', function () {
     expect($this->validator->isValid($user))->toBeTrue();
 });
 
-test('returns false if age is under or equal to 18', function () {
+test('returns false if age is under or equal to 18', function (): void {
     $user = [
         'age' => 18,
         'email' => 'test@example.com',
@@ -26,7 +26,7 @@ test('returns false if age is under or equal to 18', function () {
     expect($this->validator->isValid($user))->toBeFalse();
 });
 
-test('returns false if email is missing', function () {
+test('returns false if email is missing', function (): void {
     $user = [
         'age' => 25,
         'name' => 'Stu',
@@ -35,7 +35,7 @@ test('returns false if email is missing', function () {
     expect($this->validator->isValid($user))->toBeFalse();
 });
 
-test('returns false if email is invalid', function () {
+test('returns false if email is invalid', function (): void {
     $user = [
         'age' => 25,
         'email' => 'not-an-email',
@@ -45,7 +45,7 @@ test('returns false if email is invalid', function () {
     expect($this->validator->isValid($user))->toBeFalse();
 });
 
-test('returns false if name is 0', function () {
+test('returns false if name is 0', function (): void {
     $user = [
         'age' => 25,
         'email' => 'test@example.com',
@@ -55,7 +55,7 @@ test('returns false if name is 0', function () {
     expect($this->validator->isValid($user))->toBeFalse();
 });
 
-test('returns false if name is "0"', function () {
+test('returns false if name is "0"', function (): void {
     $user = [
         'age' => 25,
         'email' => 'test@example.com',
@@ -65,7 +65,7 @@ test('returns false if name is "0"', function () {
     expect($this->validator->isValid($user))->toBeFalse();
 });
 
-test('returns false if name is empty string', function () {
+test('returns false if name is empty string', function (): void {
     $user = [
         'age' => 25,
         'email' => 'test@example.com',
@@ -75,7 +75,7 @@ test('returns false if name is empty string', function () {
     expect($this->validator->isValid($user))->toBeFalse();
 });
 
-test('returns false if name is missing', function () {
+test('returns false if name is missing', function (): void {
     $user = [
         'age' => 25,
         'email' => 'test@example.com',

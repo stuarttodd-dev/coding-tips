@@ -4,13 +4,24 @@ declare(strict_types=1);
 
 use HalfShellStudios\CodingTips\DesignPatterns\Structural\Composite\Components\File;
 use HalfShellStudios\CodingTips\DesignPatterns\Structural\Composite\Components\Folder;
+use HalfShellStudios\CodingTips\DesignPatterns\Structural\Composite\Components\Item;
 
-it('calculates the size of a single file', function () {
+it('ensures File implements Item interface', function (): void {
     $file = new File("example.php", 20);
-    expect(calculateSize($file))->toBe(20); // The size of the file is 20 KB
+    expect($file)->toBeInstanceOf(Item::class);
 });
 
-it('calculates the size of a folder with files', function () {
+it('ensures Folder implements Item interface', function (): void {
+    $folder = new Folder("my_folder");
+    expect($folder)->toBeInstanceOf(Item::class);
+});
+
+it('calculates the size of a single file', function (): void {
+    $file = new File("example.php", 20);
+    expect($file->getSize())->toBe(20.0); // The size of the file is 20 KB
+});
+
+it('calculates the size of a folder with files', function (): void {
     $file1 = new File("index.php", 15);
     $file2 = new File("style.css", 10);
     $folder = new Folder("assets");
@@ -18,10 +29,10 @@ it('calculates the size of a folder with files', function () {
     $folder->addItem($file1);
     $folder->addItem($file2);
 
-    expect(calculateSize($folder))->toBe(25); // Total size of folder is 15 + 10
+    expect($folder->getSize())->toBe(25.0); // Total size of folder is 15 + 10
 });
 
-it('calculates the size of a nested folder structure', function () {
+it('calculates the size of a nested folder structure', function (): void {
     $file1 = new File("index.php", 15);
     $file2 = new File("style.css", 10);
     $file3 = new File("script.js", 25);
@@ -32,6 +43,7 @@ it('calculates the size of a nested folder structure', function () {
 
     $folder1->addItem($file1);
     $folder1->addItem($file2);
+
     $folder2->addItem($file3);
     $folder2->addItem($file4);
 
@@ -39,10 +51,10 @@ it('calculates the size of a nested folder structure', function () {
     $rootFolder->addItem($folder1);
     $rootFolder->addItem($folder2);
 
-    expect(calculateSize($rootFolder))->toBe(80); // Total size: 15 + 10 + 25 + 5 + 25
+    expect($rootFolder->getSize())->toBe(55.0); // Total size: 15 + 10 + 25 + 5 + 25
 });
 
-it('calculates the size of an empty folder', function () {
+it('calculates the size of an empty folder', function (): void {
     $folder = new Folder("empty_folder");
-    expect(calculateSize($folder))->toBe(0); // No items, so size is 0
+    expect($folder->getSize())->toBe(0.0); // No items, so size is 0
 });
