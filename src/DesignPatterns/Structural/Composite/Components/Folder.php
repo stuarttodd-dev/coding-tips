@@ -34,4 +34,28 @@ class Folder implements Item
     {
         return $this->name;
     }
+
+    public function find(string $name): ?Item
+    {
+        if ($this->name === $name) {
+            return $this;
+        }
+
+        foreach ($this->items as $item) {
+            $found = $item->find($name);
+            if ($found !== null) {
+                return $found;
+            }
+        }
+
+        return null;
+    }
+
+    public function list(int $depth = 0): void
+    {
+        echo str_repeat("  ", $depth) . "+ " . $this->name . " (" . $this->getSize() . " KB)\n";
+        foreach ($this->items as $item) {
+            $item->list($depth + 1);
+        }
+    }
 }

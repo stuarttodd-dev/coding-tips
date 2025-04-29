@@ -1,9 +1,16 @@
 # Composite Pattern
 The _Composite Pattern_ is a structural design pattern that allows you to compose objects into tree-like structures to represent part-whole hierarchies. It treats individual objects and compositions of objects uniformly, enabling clients to treat single objects and compositions of objects the same way.
+
 In simpler terms:
 
 - You have a collection of objects that are either individual components or compositions of components.
 - You can treat both the individual objects and composite objects in the same way, allowing you to manage complex tree-like structures.
+
+Components are categorised into two types:
+- **Leaf**: A component that doesn't have children. It's an end node in the tree structure. In our example, a `File` is a leaf — it can't contain anything.
+- **Composite**: A component that can have children, which can be either other composites or leaves. In our example, a `Folder` is a composite — it can contain files and other folders.
+
+The brilliance of the pattern is that both leaf and composite implement the same interface, so they can be treated the same.
 
 ## Directory Structure
 Here’s the full directory structure for our Composite Pattern example:
@@ -74,6 +81,9 @@ The Composite Pattern fixes this problem by:
 interface Item
 {
     public function getSize(): float;
+    public function getName(): string;
+    public function find(string $name): ?Item;
+    public function list(int $depth = 0): void;
 }
 
 class File implements Item
@@ -91,6 +101,16 @@ class File implements Item
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function find(string $name): ?Item
+    {
+        return $this->name === $name ? $this : null;
+    }
+    
+    public function list(int $depth = 0): void
+    {
+        echo str_repeat("  ", $depth) . "- " . $this->name . " (" . $this->size . " KB)\n";
     }
 }
 
@@ -121,6 +141,30 @@ class Folder implements Item
     {
         return $this->name;
     }
+
+    public function find(string $name): ?Item
+    {
+        if ($this->name === $name) {
+            return $this;
+        }
+
+        foreach ($this->items as $item) {
+            $found = $item->find($name);
+            if ($found !== null) {
+                return $found;
+            }
+        }
+
+        return null;
+    }
+    
+    public function list(int $depth = 0): void
+    {
+        echo str_repeat("  ", $depth) . "+ " . $this->name . " (" . $this->getSize() . " KB)\n";
+        foreach ($this->items as $item) {
+            $item->list($depth + 1);
+        }
+    }
 }
 ```
 
@@ -133,24 +177,38 @@ $file1 = new File("index.php", 15);
 $file2 = new File("style.css", 10);
 $file3 = new File("script.js", 25);
 $file4 = new File("readme.txt", 5);
+$file5 = new File("logo.png", 50);
 
-// Create folders
+// Create subfolders
+$imgFolder = new Folder("images");
+$imgFolder->addItem($file5);
+
+// Create higher-level folders
 $folder1 = new Folder("assets");
-$folder2 = new Folder("src");
-
-// Add files to folders
 $folder1->addItem($file1);
 $folder1->addItem($file2);
+$folder1->addItem($imgFolder); // nested folder
+
+$folder2 = new Folder("src");
 $folder2->addItem($file3);
 $folder2->addItem($file4);
 
-// Create a root folder
-$rootFolder = new Folder("project");
-$rootFolder->addItem($folder1);
-$rootFolder->addItem($folder2);
+// Create root folder
+$root = new Folder("project");
+$root->addItem($folder1);
+$root->addItem($folder2);
 
-// Calculate total size of the project
-echo "Total Size of Project: " . $rootFolder->getSize() . " KB\n"; // Outputs the total size of the entire project
+// Print total size
+echo "Total Project Size: " . $root->getSize() . " KB\n";
+
+// Search for a file
+$foundItem = $root->find("logo.png");
+
+if ($foundItem) {
+    echo "Found: " . $foundItem->getName() . " (" . $foundItem->getSize() . " KB)\n";
+} else {
+    echo "File not found.\n";
+}
 ```
 
 You can now add new payment gateways without modifying the `PaymentService` class.

@@ -21,4 +21,14 @@ class File implements Item
     {
         return $this->name;
     }
+
+    public function find(string $name): ?Item
+    {
+        return $this->name === $name ? $this : null;
+    }
+
+    public function list(int $depth = 0): void
+    {
+        echo str_repeat("  ", $depth) . "- " . $this->name . " (" . $this->size . " KB)\n";
+    }
 }
