@@ -28,8 +28,7 @@ Here’s the full directory structure for our Composite Pattern example:
     └── Unit  
         └── DesignPatterns  
             └── Structural  
-                └── Composite  
-                    └── CompositeTest.php  
+                └── CompositeTest.php  
 ```
 
 ### Files Overview
