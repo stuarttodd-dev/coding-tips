@@ -14,9 +14,11 @@ Here’s the full directory structure for our Composite Pattern example:
         └── Structural   
             └── Composite  
                 └── Components  
-                    └── Leaf.php 
-                    └── Composite.php 
-                └── Client.php
+                    └── File.php  
+                    └── Folder.php  
+                    └── Item.php  
+                └── Client.php  
+                └── FileSystem.php  
 └── tests  
     └── Unit  
         └── DesignPatterns  
@@ -25,10 +27,12 @@ Here’s the full directory structure for our Composite Pattern example:
 ```
 
 ### Files Overview
-- **Components/Leaf.php**: The Leaf class represents a simple component in the composition. It doesn't have any children but can perform actions or hold data.
-- **Components/Composite.php**: The `Composite` class represents a composite object, which may have child components (both Leaf and other `Composite` objects). It manages adding and removing child components.
-- **Client.php**: The `Client` class is responsible for creating and interacting with both leaf and composite objects.
-- **tests/Unit/DesignPatterns/Structural/CompositeTest.php**: Unit tests for the above classes.
+- **Components/File.php**: The `File` class represents a leaf component in the composition. It is a basic file with no child components. It has its own specific behavior, like calculating size or displaying content.
+- **Components/Folder.php**: The `Folder` class represents a composite component. It can contain other `File` or `Folder` objects (children). It allows for adding/removing child components and delegates behavior to its children, such as calculating the total size of all its contents.
+- **Components/Item.php**: The `Item` interface defines common behavior for both files and folders. Both `File` and `Folder` implement this interface, allowing them to be treated uniformly.
+- **FileSystem.php**: The `FileSystem` class is responsible for managing the entire collection of items (files and folders). It can iterate over the items and perform operations like calculating total size, listing files, or managing the structure.
+- **Client.php**: The `Client` class demonstrates how to use the FileSystem and interact with both files and folders, treating them uniformly.
+- **tests/Unit/DesignPatterns/Structural/CompositeTest.php**: Unit tests for the above classes, testing the behavior of individual files, folders, and composite operations.
 
 ## Running Tests
 You can execute the tests using the following command:
@@ -38,86 +42,87 @@ docker exec coding-tips  ./vendor/bin/pest tests/Unit/DesignPatterns/Structural/
 ```
 
 ## The Problem It Solves
-Imagine you're building a graphic editor with a drawing board that supports shapes. You have individual shapes like circles and rectangles, but you also need to handle composite shapes (like groups of shapes). 
+Imagine you're building a file system manager that supports both individual files and folders. You have individual files like text files and images, but you also need to handle composite folders that can contain multiple files and even other folders.
 
 Here's how you'd normally approach it (bad example):
 
 ```php
-function calculateArea($shape) {
-    if ($shape instanceof Circle) {
-        return $shape->calculateArea();
-    } elseif ($shape instanceof Rectangle) {
-        return $shape->calculateArea();
-    } elseif ($shape instanceof GroupOfShapes) {
-        $totalArea = 0;
-        foreach ($shape->getShapes() as $subShape) {
-            $totalArea += calculateArea($subShape);
+function calculateSize($item)
+{
+    if ($item instanceof File) {
+        return $item->getSize(); // For File, return the file's size
+    } elseif ($item instanceof Folder) {
+        $totalSize = 0;
+        foreach ($item->getItems() as $subItem) {
+            $totalSize += calculateSize($subItem); // Recursively calculate the size of the folder's contents
         }
-        return $totalArea;
+        return $totalSize; // Return total size of the folder
     }
 }
 ```
 
 ### Why This Is Bad?
-- **Hard-Coded Logic**: The function explicitly checks each type of shape, making it difficult to extend.
-- **Violation of Open/Closed Principle**: Every time a new shape is added, you have to modify the logic to handle it.
-- **Difficult to Manage Complex Hierarchies**: Handling nested groups of shapes becomes cumbersome.
+- **Hard-Coded Logic**: The `calculateSize` function explicitly checks each type of item (`File`, `Folder`), making it difficult to add new types or change behaviour without modifying the function.
+- **Violation of Open/Closed Principle**: Every time you introduce a new type of item (e.g., a new type of file or custom folder), you have to modify the `calculateSize` function.
+- **Difficult to Manage Nested Structures**: Handling nested folder structures becomes more complex as you add more types of items or items that behave differently.
 
 ## The Solution
 The Composite Pattern fixes this problem by:
 
-- Defining a common interface (`Shape`) for both individual shapes and composite shapes.
-- Using `Leaf` objects for individual shapes (e.g., `Circle` and `Rectangle`), and `Composite` objects for groups of shapes.
-- Treating both the leaf and composite objects uniformly, so no special logic is required when interacting with them.
+- Defining a common interface (`Item`) for both individual files and composite folders.
+- Using `Leaf` objects for individual files (e.g., `File`), and `Composite` objects for folders that can contain other files or folders.
+- Treating both individual files and folders uniformly by interacting with them through the common `Item` interface, so no special logic is required when dealing with files, folders, or their nested structures.
 
 ```php
-interface Shape
+interface Item
 {
-    public function calculateArea(): float;
+    public function getSize(): float;
 }
 
-class Circle implements Shape
+class File implements Item
 {
-    public function __construct(private float $radius)
+    public function __construct(private string $name, private float $size)
     {
         //
     }
 
-    public function calculateArea(): float
+    public function getSize(): float
     {
-        return pi() * $this->radius * $this->radius;
+        return $this->size;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 }
 
-class Rectangle implements Shape
+class Folder implements Item
 {
-    public function __construct(private float $width, private float $height)
+    private array $items = [];
+
+    public function __construct(private string $name)
     {
         //
     }
 
-    public function calculateArea(): float
+    public function addItem(Item $item): void
     {
-        return $this->width * $this->height;
-    }
-}
-
-class GroupOfShapes implements Shape
-{
-    private array $shapes = [];
-
-    public function addShape(Shape $shape): void
-    {
-        $this->shapes[] = $shape;
+        $this->items[] = $item;
     }
 
-    public function calculateArea(): float
+    public function getSize(): float
     {
-        $totalArea = 0;
-        foreach ($this->shapes as $shape) {
-            $totalArea += $shape->calculateArea();
+        $totalSize = 0;
+        foreach ($this->items as $item) {
+            $totalSize += $item->getSize();
         }
-        return $totalArea;
+        return $totalSize;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 }
 ```
@@ -126,26 +131,38 @@ class GroupOfShapes implements Shape
 Here’s how you'd use it:
 
 ```php
-// Create individual shapes
-$circle = new Circle(5);
-$rectangle = new Rectangle(10, 20);
+// Create files
+$file1 = new File("index.php", 15);
+$file2 = new File("style.css", 10);
+$file3 = new File("script.js", 25);
+$file4 = new File("readme.txt", 5);
 
-// Create a group of shapes
-$group = new GroupOfShapes();
-$group->addShape($circle);
-$group->addShape($rectangle);
+// Create folders
+$folder1 = new Folder("assets");
+$folder2 = new Folder("src");
 
-// Calculate the total area of the group
-echo $group->calculateArea(); // Outputs combined area
+// Add files to folders
+$folder1->addItem($file1);
+$folder1->addItem($file2);
+$folder2->addItem($file3);
+$folder2->addItem($file4);
+
+// Create a root folder
+$rootFolder = new Folder("project");
+$rootFolder->addItem($folder1);
+$rootFolder->addItem($folder2);
+
+// Calculate total size of the project
+echo "Total Size of Project: " . $rootFolder->getSize() . " KB\n"; // Outputs the total size of the entire project
 ```
 
 You can now add new payment gateways without modifying the `PaymentService` class.
 
 ### Advantages
-- **Uniform Treatment**: Treats both simple and composite objects uniformly.
-- **Flexibility**: Easily add new shapes or groupings without modifying existing code.
-- **Extensibility**: New types of shapes can be added without changing the structure of the existing code.
+- **Uniform Treatment**: Treats both files and folders uniformly through the shared Item interface, simplifying logic.
+- **Flexibility**: Easily add new file or folder types (e.g., symbolic links, compressed folders) without modifying existing logic.
+- **Extensibility**: New behaviours (like calculating size, listing contents, or permissions) can be added to files or folders independently without changing the core structure.
 
 ### Disadvantages
-- **Complexity**: Overuse of composites may lead to an overly complex object structure.
-- **Harder to Understand**: Understanding the interactions between composite objects and their children may be challenging in large systems.
+- **Complexity**: Overusing nested folders or deeply recursive structures can lead to a more complex system than necessary.
+- **Harder to Understand**: Tracing and debugging deeply nested folder structures may be difficult in large-scale file systems.
