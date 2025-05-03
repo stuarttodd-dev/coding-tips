@@ -3,7 +3,6 @@
 namespace HalfShellStudios\CodingTips\Samples\FeedProcessor\Abstractions;
 
 use HalfShellStudios\CodingTips\Samples\FeedProcessor\Exceptions\FileDoesNotExistException;
-use League\Csv\Reader;
 
 abstract class BaseProcessor
 {
