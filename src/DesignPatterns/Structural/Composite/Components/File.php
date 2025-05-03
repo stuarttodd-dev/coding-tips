@@ -22,11 +22,13 @@ class File implements Item
         return $this->name;
     }
 
+    #[\Override]
     public function find(string $name): ?Item
     {
         return $this->name === $name ? $this : null;
     }
 
+    #[\Override]
     public function list(int $depth = 0): void
     {
         echo str_repeat("  ", $depth) . "- " . $this->name . " (" . $this->size . " KB)\n";

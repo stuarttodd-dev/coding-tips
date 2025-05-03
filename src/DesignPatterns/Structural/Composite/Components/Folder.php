@@ -35,6 +35,7 @@ class Folder implements Item
         return $this->name;
     }
 
+    #[\Override]
     public function find(string $name): ?Item
     {
         if ($this->name === $name) {
@@ -51,6 +52,7 @@ class Folder implements Item
         return null;
     }
 
+    #[\Override]
     public function list(int $depth = 0): void
     {
         echo str_repeat("  ", $depth) . "+ " . $this->name . " (" . $this->getSize() . " KB)\n";
