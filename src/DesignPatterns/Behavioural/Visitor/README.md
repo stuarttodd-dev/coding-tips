@@ -1,4 +1,4 @@
-# Strategy Pattern
+# Visitor Pattern
 This project demonstrates the use of the Visitor Pattern to perform operations on different entities, such as counting pages or words in documents and books. It includes implementations of multiple visitors, each encapsulating a specific operation.
 
 ## Directory Structure
@@ -40,9 +40,7 @@ You can execute the tests using the following command:
 docker exec coding-tips  ./vendor/bin/pest tests/Unit/DesignPatterns/Behavioural/VisitorTest.php 
 ```
 
-## Visitor Pattern
-
-### Advantages
+## Advantages
 - **Separation of Concerns**: Each visitor handles a specific functionality, keeping entities like Book and Document clean.
 - **Open/Closed Principle**: You can add new operations by creating a new visitor without modifying existing entities.
 - **Consistency Across Entities**: Each visitor defines how it handles all entities, avoiding duplicated logic.
@@ -71,13 +69,13 @@ foreach ($visitors as $visitor) {
 }
 ```
 
-### Disadvantages
+## Disadvantages
 - **Tightly Coupled to Entity Structure**: Adding a new entity requires updating every visitor interface and visitor class.
 - **Overkill for Simple Use Cases**: For a single operation or small project, a visitor may add unnecessary complexity.
 - **Can Break Encapsulation**: Visitors often need access to internal data, which might require exposing getters or internal state.
 - **State Management**: Visitors often store results internally ($count), which may not be ideal in some contexts.
 
-## Visitor Examples
+## Code Example
 ```php
 class PageCountVisitor implements VisitorInterface
 {
